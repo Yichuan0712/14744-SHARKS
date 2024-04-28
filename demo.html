@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>14744 Project</title>
+  <style>
+    body,
+    html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f8ff;
+    }
+
+    /* body, html {
+  overflow: hidden;
+} */
+    h2 {
+      font-size: 32px;
+      /* Further increased font size */
+      color: #007bff;
+      /* Title color to match the navigation bar */
+      text-align: left;
+      /* Center align the titles */
+      margin: 20px 0;
+      /* Added space around the title */
+    }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      background: #007bff;
+      padding: 20px 0;
+    }
+
+    nav a {
+      text-decoration: none;
+      display: inline-block;
+      padding: 10px 20px;
+      color: white;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* nav a:hover {
+    background-color: #0056b3;
+    /* color: #dcdcdc; */
+    /* color: white;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+  } */
+    nav a.active {
+      background-color: #0056b3;
+      /* color: #dcdcdc; */
+      color: white;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+    }
+
+    .content,
+    nav {
+      display: none;
+      /* Initially hide content and nav */
+    }
+
+    .content {
+      padding: 20px;
+      padding-bottom: 50px;
+      /* Avoid content being hidden by the nav bar */
+    }
+
+    .login-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    .login-container h2 {
+      text-align: center;
+    }
+
+    .login-form {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 300px;
+      width: 100%;
+    }
+
+    .login-input,
+    .login-button {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+    }
+
+    .login-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .login-button:hover {
+      background-color: #0056b3;
+    }
+
+    /* Adjusted the margin for the form elements */
+    .login-input,
+    .login-button {
+      width: 100%;
+      /* Full width of their container */
+      padding: 10px;
+      margin-bottom: 10px;
+      /* Same space below the inputs and button */
+      border: 1px solid #007bff;
+      border-radius: 5px;
+      box-sizing: border-box;
+      /* Include padding and border in the element's total width and height */
+    }
+
+    .login-button {
+      margin-top: 10px;
+      /* More space above the button */
+      margin-bottom: 0;
+    }
+
+    .toggle_button {
+      background-color: #4d4d4d;
+      /* Button background color */
+      color: white;
+      /* Button text color */
+      cursor: pointer;
+      /* Cursor indicates the button is clickable */
+      font-size: 16px;
+      /* Font size similar to the rest of the elements */
+      padding: 10px;
+      /* Padding inside the button */
+      border: none;
+      /* No border for a modern look */
+      border-radius: 5px;
+      /* Rounded corners like the progress bars */
+      transition: background-color 0.3s;
+      /* Smooth background color transition */
+      width: 80%;
+      /* Auto width based on content, with padding applied */
+      margin: 20px auto;
+      /* Center button horizontally with margin */
+      display: block;
+      /* Ensure button takes its own line */
+    }
+
+
+
+    form#healthProfileForm {
+      background-color: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    form#healthProfileForm label,
+    form#healthProfileForm input,
+    form#healthProfileForm button,
+    form#healthProfileForm select {
+      box-sizing: border-box;
+      font-family: 'Arial', sans-serif;
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+    }
+
+    form#healthProfileForm input,
+    form#healthProfileForm button,
+    form#healthProfileForm select {
+      padding: 10px;
+      border: 1px solid #007bff;
+      border-radius: 5px;
+    }
+
+    form#healthProfileForm button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    form#healthProfileForm button:hover {
+      background-color: #0056b3;
+    }
+
+    #photo-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #photo-list {
+      /* border: 2px dashed #007bff  */
+      border-radius: 8px;
+      width: 200px;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 20px auto;
+    }
+
+    #photo-preview {
+      max-width: 100%;
+      max-height: 100%;
+      display: block;
+    }
+
+    #current-description {
+      /* border: 1px solid #007bff;  */
+      border-radius: 8px;
+      padding: 10px;
+      list-style-type: none;
+      max-width: 400px;
+      margin: 20px auto;
+      min-height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #time-description {
+      border-radius: 8px;
+      padding: 10px;
+      list-style-type: none;
+      max-width: 400px;
+      margin: 20px auto;
+      min-height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #mission-description {
+      /* border: 1px solid #007bff;  */
+      border-radius: 8px;
+      padding: 10px;
+      list-style-type: none;
+      max-width: 400px;
+      margin: 20px auto;
+      min-height: 130px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    #history-descriptions {
+      border-radius: 8px;
+      padding: 10px;
+      list-style-type: none;
+      max-width: 400px;
+      margin: 20px auto;
+      min-height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-color: white;
+      border-radius: 5px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+
+    #current-description h3 {
+      text-align: center;
+    }
+
+    #current-description li {
+      border-bottom: 1px solid #007bff;
+      padding: 5px;
+    }
+
+    #photo-my-shark {
+      transition: transform 0.5s ease-in-out;
+    }
+
+    @keyframes jump {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-20px);
+      }
+    }
+
+    #jumpshark {
+      animation: jump 1s ease-in-out;
+      animation-fill-mode: forwards;
+      animation-iteration-count: infinite;
+      animation-delay: 17s;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="login-container" id="login-container">
+    <form class="login-form" onsubmit="login(event)">
+      <h2>Login</h2>
+      <input type="text" id="username" class="login-input" placeholder="Username" required>
+      <input type="password" id="password" class="login-input" placeholder="Password" required>
+      <button type="submit" class="login-button">Log In</button>
+    </form>
+  </div>
+
+  <div class="content" id="app-content">
+    <div id="dashboard" class="section">
+      <h2>🦈 My Shark</h2>
+      <p>Welcome aboard! Sail through your wellness data like a pro and anchor at the insights to keep your hydration
+        levels shipshape.</p>
+      <!-- <br> -->
+      <div id="photo-my-shark"
+        style="width: 320px; height: 320px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Same value for width and height */ background-color: white; border-radius: 50%; /* This makes it round */ display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 20px auto; font-size: 5em; /* Adjust font size as needed */">
+        <p id="jumpshark">🦈</p>
+      </div>
+
+      <!-- <br> -->
+      <div id="deviceInfo"
+        style="width: 50%; padding: 10px; margin: 10px auto; margin-top: 10px; background-color: white; text-align: center; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);border-radius: 5px;">
+        No device connected
+      </div>
+
+
+      <!-- Hydration Progress Bar -->
+      <div class="progress-container"
+        style="background-color: #e0e0e0; border-radius: 5px; padding: 3px; margin: 22px auto; width: 80%;">
+        <div id="hydration-progress"
+          style="background-color: #007bff; width: 0%; /* Adjust width based on actual progress */ height: 22px; border-radius: 5px; text-align: center; color: white; line-height: 20px;">
+          0%</div>
+      </div>
+
+      <!-- Mission Progress Bar -->
+      <div class="progress-container"
+        style="background-color: #e0e0e0; border-radius: 5px; padding: 3px; margin: 22px auto; width: 80%;">
+        <div id="mission-progress"
+          style="background-color: #ff6d00; width: 0%; /* Adjust width based on actual progress */ height: 22px; border-radius: 5px; text-align: center; color: white; line-height: 20px;">
+          0%</div>
+      </div>
+
+      <div id="buttons">
+        <button id="connect_button" class="toggle_button" style="background-color: #00d034;">Add Sensor</button>
+      </div>
+      <div id="buttons">
+        <button id="disconnect_button" class="toggle_button" style="background-color: #ff2419;">Disconnect</button>
+      </div>
+
+      <br><br><br><br>
+
+      <h2>💧 Body Hydration Stats</h2>
+      <p>Track your hydration levels over time and ensure you're always at your best.</p>
+
+      <!-- Hydration Stats for a Week -->
+      <h3>📅 Weekly Hydration Stats</h3>
+      <div class="week-stats" style="width: 80%; margin: 20px auto;">
+        <!-- Week stats will be filled by JavaScript -->
+      </div>
+
+      <!-- Daily Water Intake at Different Times -->
+      <h3>🕒 Daily Hydration Pattern</h3>
+      <div class="day-stats" style="width: 80%; margin: 20px auto;">
+        <!-- Day stats will be filled by JavaScript -->
+      </div>
+
+      <!-- Hydration Tip -->
+      <h3>💡 Hydration Tip</h3>
+      <div class="hydration-tip"
+        style="background-color: #f0f0f0; border-radius: 8px; padding: 20px; margin: 20px auto; width: 80%;">
+        <p>Drinking water at regular intervals throughout the day can help maintain optimal hydration levels and improve
+          your overall health.</p>
+      </div>
+      <br><br><br><br>
+      <style>
+        .daily-stat,
+        .time-stat {
+          margin: 10px 0;
+          display: flex;
+          align-items: center;
+        }
+
+        .stat-bar {
+          display: inline-block;
+          padding: 5px;
+          border-radius: 5px;
+          color: white;
+        }
+
+        .label {
+          min-width: 70px;
+          /* Ensure labels have enough width to align bars */
+        }
+      </style>
+
+      <script>
+        const hydrationDataWeek = {
+          "Mon": 150,
+          "Tue": 600,
+          "Wed": 550,
+          "Thu": 650,
+          "Fri": 700,
+          "Sat": 400,
+          "Sun": 800
+        };
+
+        const hydrationDataDay = {
+          "Morning": 200,
+          "Midday": 300,
+          "Evening": 250
+        };
+
+        function getColor(amount) {
+          // You can customize these ranges and colors
+          if (amount < 200) return '#ff3e3e'; // Danger color for low intake
+          if (amount < 600) return '#ffa500'; // Warning color for moderate intake
+          return '#4caf50'; // Safe color for good intake
+        }
+
+        function updateHydrationStats(containerId, data) {
+          const container = document.querySelector(containerId);
+          container.innerHTML = ''; // Clear existing stats
+          Object.entries(data).forEach(([key, amount]) => {
+            const percentage = Math.min((amount / 1000) * 100, 100); // Assuming 1000ml is the goal
+            const barColor = getColor(amount);
+            const statDiv = document.createElement('div');
+            statDiv.className = 'daily-stat';
+            statDiv.innerHTML = `<span class="label">${key}:</span> <span class="stat-bar" style="width: ${percentage}%; background-color: ${barColor};">${amount}ml</span>`;
+            container.appendChild(statDiv);
+          });
+        }
+
+        updateHydrationStats('.week-stats', hydrationDataWeek);
+        updateHydrationStats('.day-stats', hydrationDataDay);
+      </script>
+
+
+      <h2>🍾 Shark Gang</h2>
+      <p>Hang out with friends, share your hydration wins, and ride the wave to wellness together!</p>
+      <div class="friends-container"
+        style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: center; padding: 0 20px;">
+        <!-- Friend Blocks -->
+        <!-- Each 'friend' div is 48% wide to allow for two per row with spacing -->
+        <!-- Adjust the 'height', 'background-color', and other styles as needed -->
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 80px; margin-top: 70px;">🦑</p>
+        </div>
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 80px; margin-top: 60px;">🐠</p>
+        </div>
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 80px; margin-top: 60px;">🐋</p>
+        </div>
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 80px; margin-top: 70px;">🐡</p>
+        </div>
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 80px; margin-top: 70px;">🐬</p>
+        </div>
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 80px; margin-top: 60px;">🦭</p>
+        </div>
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 80px; margin-top: 60px;">🐟️</p>
+        </div>
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 80px; margin-top: 70px;">🦞</p>
+        </div>
+        <div class="friend"
+          style="width: 48%; background-color: white; margin: 10px 0; border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; height: 100px;width: 100px; display: flex; justify-content: center; align-items: center;">
+          <p style="font-size: 25px;">➕</p>
+        </div>
+      </div>
+      <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+    <div id="mealsnap" class="section">
+      <h2>🍔 Feast Snap</h2>
+      <p>Dive into Feast Snap! Remember, every bite counts towards your mission to stay hydrated!</p>
+
+      <div id="photo-preview-area"
+        style="width: 200px; height: 200px;   background-color: white; 
+        border-radius: 5px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin: 20px auto;"
+        onclick="document.getElementById('photo').click();">
+        <img id="photo-preview" src="" alt="Photo preview" style="max-width: 100%; height: auto; display: none;">
+        <div id="photo-list">
+          <p style="font-size: 125px; margin-top: 75px;">📸</p>
+        </div>
+      </div>
+
+
+      <input type="file" id="photo" name="photo" accept="image/*" capture="user" style="display: none;">
+      <div id="current-description" style="text-align: center; margin-top: 20px;">
+        <p style="color: rgb(150, 150, 150);">Shark Smash!</p>
+      </div>
+      <div id="mission-description" style="text-align: center; margin-top: 20px;">
+        <p style="color: rgb(150, 150, 150);">Snap or Select a Photo to Start Your Mission!</p>
+      </div>
+      <div id="time-description" style="text-align: center; margin-top: 20px;">
+        <p style="color: rgb(150, 150, 150);">Roar!</p>
+      </div>
+    </div>
+
+    <div id="healthprofile" class="section" onsubmit="saveProfile(event)">
+      <h2>🛠️ Settings</h2>
+      <p>Personalize your health metrics and adjust your privacy settings here. All hands on deck for a healthier you!
+      </p>
+      <h3>🍎 Health Metrics</h3>
+      <form id="healthProfileForm">
+        <label for="name">Shark Name:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" name="height" min="0" required>
+
+        <label for="weight">Weight (kg):</label>
+        <input type="number" id="weight" name="weight" min="0" required>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" min="0" required>
+
+        <label for="gender">Gender:</label>
+        <select id="gender" name="gender" required>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Shark</option>
+        </select>
+        <br>
+        <button type="submit">Update</button>
+      </form>
+
+      <h3>🔒 Privacy</h3>
+      <form id="healthProfileForm" onsubmit="saveProfile(event)">
+        <label for="profileVisibility">Profile Visibility:</label>
+        <select id="profileVisibility" name="profileVisibility" required>
+          <option value="Public">Public</option>
+          <option value="Friends">Friends</option>
+          <option value="Private">Private</option>
+        </select>
+
+        <label for="dataSharing">Data Sharing with Partners:</label>
+        <select id="dataSharing" name="dataSharing" required>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+
+        <label for="activityStatus">Activity Status:</label>
+        <select id="activityStatus" name="activityStatus" required>
+          <option value="Online">Online</option>
+          <option value="Away">Away</option>
+          <option value="Do Not Disturb">Do Not Disturb</option>
+          <option value="Invisible">Invisible</option>
+        </select>
+        <br>
+        <button type="submit">Update</button>
+      </form>
+      <br>
+      <br>
+      <br>
+      <br>
+    </div>
+  </div>
+
+
+  <nav id="app-nav">
+    <a href="#" onclick="showSection('dashboard'); return false;">🦈 Sharks</a>
+    <a href="#" onclick="showSection('mealsnap'); return false;">🍔 Feast Snap</a>
+    <a href="#" onclick="showSection('healthprofile'); return false;">🛠️ Settings</a>
+  </nav>
+
+  <script>
+
+
+    var missionStatus = false;
+    var missionTimer = null;
+
+
+    function login(event) {
+      event.preventDefault(); // Prevent form from submitting and refreshing the page
+      var username = document.getElementById('username').value;
+      var password = document.getElementById('password').value;
+      if (username !== '' && password !== '') {
+        document.getElementById('login-container').style.display = 'none';
+        document.getElementById('app-content').style.display = 'block';
+        document.getElementById('app-nav').style.display = 'block';
+        showSection('dashboard'); // Show the dashboard section by default
+      } else {
+        alert('Incorrect username or password.');
+      }
+    }
+
+    function showSection(sectionId) {
+      // Hide all sections
+      var sections = document.getElementsByClassName('section');
+      for (var i = 0; i < sections.length; i++) {
+        sections[i].style.display = 'none';
+      }
+
+      // Show the selected section
+      document.getElementById(sectionId).style.display = 'block';
+
+      // Update the active link
+      var navLinks = document.querySelectorAll('nav a');
+      navLinks.forEach(function (link) {
+        link.classList.remove('active'); // Remove active class from all links
+        var targetSection = link.getAttribute('onclick').split("'")[1]; // Get sectionId from onclick attribute
+        if (targetSection === sectionId) {
+          link.classList.add('active'); // Add active class to the current link
+        }
+      });
+
+      // Control scrolling
+      if (sectionId === 'mealsnap') {
+        // Disable scrolling
+        document.body.style.overflow = 'hidden';
+      } else {
+        // Enable scrolling
+        document.body.style.overflow = '';
+      }
+    }
+
+
+    // Enhance nav links to work with showSection function
+    document.querySelectorAll('nav a').forEach(function (link) {
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        var sectionId = this.getAttribute('onclick').split("'")[1];
+        showSection(sectionId);
+      });
+    });
+
+    // Set 'dashboard' as the active section on page load
+    document.addEventListener('DOMContentLoaded', function () {
+      showSection('dashboard');
+    });
+  </script>
+
+  <script>
+
+    function saveProfile(event) {
+      event.preventDefault(); // 
+
+
+      var profile = {
+        name: document.getElementById('name').value,
+        height: document.getElementById('height').value,
+        weight: document.getElementById('weight').value,
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+
+        profileVisibility: document.getElementById('profileVisibility').value,
+        dataSharing: document.getElementById('dataSharing').value,
+        activityStatus: document.getElementById('activityStatus').value,
+      };
+
+
+      localStorage.setItem('healthProfile', JSON.stringify(profile));
+
+      // alert('Profile saved successfully!');
+    }
+
+
+    function loadProfile() {
+      var profile = localStorage.getItem('healthProfile');
+      if (profile) {
+        profile = JSON.parse(profile); 
+
+
+        document.getElementById('name').value = profile.name;
+        document.getElementById('height').value = profile.height;
+        document.getElementById('weight').value = profile.weight;
+        document.getElementById('age').value = profile.age;
+        document.getElementById('gender').value = profile.gender;
+
+        document.getElementById('profileVisibility').value = profile.profileVisibility;
+        document.getElementById('dataSharing').value = profile.dataSharing;
+        document.getElementById('activityStatus').value = profile.activityStatus;
+      }
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      loadProfile();
+    });
+
+    document.getElementById('photo').addEventListener('change', function (event) {
+      const file = event.target.files[0];
+      if (file && file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+
+          const photoList = document.getElementById('photo-list');
+          photoList.innerHTML = '';
+
+
+          const img = document.createElement('img');
+          img.src = e.target.result;
+          img.style.maxWidth = '200px';
+          img.style.display = 'block';
+          img.style.marginBottom = '10px';
+          photoList.appendChild(img);
+          missionStatus = true;
+
+        };
+        reader.readAsDataURL(file);
+      }
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+
+          const descriptions = ['An Apple a Day ⭐⭐⭐', 'Minions ⭐⭐⭐', 'The Flash ⭐⭐', 'Rainbow Challenge ⭐⭐⭐⭐⭐'];
+          const description = descriptions[Math.floor(Math.random() * descriptions.length)];
+
+
+          const currentDescription = document.getElementById('current-description');
+          currentDescription.textContent = `${description}`;
+
+
+          // const historyDescriptions = document.getElementById('history-descriptions');
+          // let historyContent = `<div>${description}</div>` + historyDescriptions.innerHTML;
+
+
+          // const tempElement = document.createElement('div');
+          // tempElement.innerHTML = historyContent;
+          // while (tempElement.childElementCount > 5) {
+          //     tempElement.removeChild(tempElement.lastChild);
+          // }
+          // historyDescriptions.innerHTML = tempElement.innerHTML;
+          let description_mission = ''
+          if (description == 'An Apple a Day ⭐⭐⭐') {
+            description_mission = 'Keep the doctor away by eating an apple today! Bonus points if it\’s a green one.'
+          }
+          else if (description == 'Minions ⭐⭐⭐') {
+            description_mission = 'Eat a banana and share another with a monkey! '
+          }
+          else if (description == 'The Flash ⭐⭐') {
+            description_mission = 'Drink a cup of water right now! '
+          }
+          else if (description == 'Rainbow Challenge ⭐⭐⭐⭐⭐') {
+            description_mission = 'Add color to your plate! Eat 5 different colored vegetables. '
+          }
+
+
+          const currentDescription_mission = document.getElementById('mission-description');
+          currentDescription_mission.textContent = ` ${description_mission}`;
+          if (missionTimer) {
+            clearTimeout(missionTimer);
+          }
+
+
+          missionTimer = setTimeout(function () {
+            missionStatus = false; 
+            
+            const currentDescription_mission = document.getElementById('mission-description');
+            currentDescription.innerHTML = '<p style="color: rgb(150, 150, 150);">Shark Smash!</p>';
+            currentDescription_mission.innerHTML = '<p style="color: rgb(150, 150, 150);">Snap or Select a Photo to Start Your Mission!</p>'; // 
+            const currentDescription_time = document.getElementById('time-description')
+            currentDescription_time.innerHTML = '<p style="color: rgb(150, 150, 150);">Roar!</p>'
+            const photoPreview = document.getElementById('photo-list');
+            photoPreview.innerHTML = '<div id="photo-list" ><p style="font-size: 125px; margin-top: 75px;">📸</p></div>'; // 
+
+          }, 300000); // 
+
+        };
+        reader.readAsDataURL(file);
+      }
+
+
+      var countDownDate = new Date().getTime() + 300000; 
+
+      var x = setInterval(function () {
+
+        var now = new Date().getTime();
+
+        var distance = countDownDate - now;
+
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("time-description").innerHTML = "The mission will end in " + minutes + "m " + seconds + "s ";
+
+        if (distance < 0) {
+          clearInterval(x);
+          document.getElementById("time-description").innerHTML = "Mission ended";
+
+        }
+      }, 1000);
+
+    });
+
+
+
+
+    var selectedDevice = {};
+    var charCommand = {}; 
+    var charData = {}; 
+    var serverConnection;
+
+
+    function connectSensor(device) {
+      return device.gatt.connect()
+        .then(server => {
+          serverConnection = server; // Save the server connection
+          return server.getPrimaryService('34802252-7185-4d5d-b431-630e7050e8f0')
+        })
+        .then(service => service.getCharacteristics())
+        .then(characteristics => {
+          characteristics.forEach(char => {
+            if (char.uuid.includes('0001')) charCommand = char; // Command characteristic
+            else if (char.uuid.includes('0002')) { // Data characteristic
+              charData = char;
+              charData.startNotifications().then(_ => {
+                charData.addEventListener('characteristicvaluechanged', handleNotifications);
+              });
+            }
+          });
+
+          // Update the UI with the connected device's information
+          document.getElementById('deviceInfo').textContent = "" + device.name;
+        })
+        .catch(error => console.error("Connection failed: ", error));
+    }
+
+
+
+    function sendCommand(command) {
+      let buffer = new Uint8Array([command]).buffer;
+      if (charCommand.writeValue) {
+        charCommand.writeValue(buffer);
+        console.log(`Command ${command} sent`);
+      }
+    }
+
+    function handleNotifications(event) {
+      var value = new Uint8Array(event.target.value.buffer);
+      var receivedString = Array.from(value).map(byte => String.fromCharCode(byte)).join('');
+      console.log('Received data: ', receivedString);
+      updateProgress(receivedString); 
+    }
+
+
+    function updateProgress(receivedString) {
+      if (!missionStatus) {
+
+        updateProgressBar('mission-progress', 0, 0); 
+      }
+      if (receivedString.includes('Drink')) {
+        updateProgressBar('hydration-progress', 5);
+      } else if (receivedString.includes('Snack')) {
+        if (missionStatus) {
+          updateProgressBar('hydration-progress', 1);
+          updateProgressBar('mission-progress', 5);
+        }
+      }
+    }
+
+
+    function updateProgressBar(progressBarId, increment, newWidth = null) {
+      var progressBar = document.getElementById(progressBarId);
+      var currentWidth = newWidth !== null ? newWidth : parseFloat(progressBar.style.width) + increment;
+      currentWidth = Math.min(currentWidth, 100); 
+      progressBar.style.width = currentWidth + '%';
+      updateSharkSize();
+      progressBar.textContent = currentWidth + '% ' + (progressBarId == 'hydration-progress' ? '' : '');
+    }
+
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('connect_button').addEventListener('click', function () {
+        navigator.bluetooth.requestDevice({
+          filters: [{ namePrefix: 'Movesense' }],
+          optionalServices: ['34802252-7185-4d5d-b431-630e7050e8f0'] // Sensor data service
+        })
+          .then(device => {
+            console.log("Device selected: ", device.name);
+            selectedDevice = device; // 
+            return connectSensor(device); // 
+          })
+          .then(() => {
+            sendCommand(1); // 
+            document.getElementById('disconnect_button').disabled = false;
+          })
+          .catch(error => console.error("An error occurred: ", error));
+      });
+
+      document.getElementById('disconnect_button').addEventListener('click', function () {
+        if (serverConnection && serverConnection.connected) {
+          serverConnection.disconnect();
+          console.log("Disconnected from the device.");
+          document.getElementById('disconnect_button').disabled = true;
+
+          // Update the UI to indicate no device is connected
+          document.getElementById('deviceInfo').textContent = "No device connected";
+        }
+      });
+
+    });
+
+    // Function to update shark size based on hydration progress
+    function updateSharkSize() {
+      const hydrationProgressElement = document.getElementById('hydration-progress');
+      const photoMySharkElement = document.getElementById('photo-my-shark');
+      // Parse the current hydration percentage from the progress element's text content
+      const currentHydration = parseFloat(hydrationProgressElement.style.width);
+
+      // Calculate the new font size based on hydration percentage
+      // Assuming 0% hydration corresponds to 1em and 100% hydration corresponds to 15em
+      const newFontSize = 5 + (currentHydration / 100) * 10; // 1em + proportion of 14em
+
+      // Update the font size of the shark emoji
+      photoMySharkElement.style.fontSize = `${newFontSize}em`;
+    }
+
+    //  
+    function checkHydrationReminder() {
+      var progressBar = document.getElementById('hydration-progress');
+      var currentWidth = parseFloat(progressBar.style.width);
+      if (currentWidth < 90) {
+        alert('Time to drink some water!');
+      }
+    }
+
+    // 
+    document.addEventListener('DOMContentLoaded', function () {
+      //  
+      setInterval(checkHydrationReminder, 300000); //  
+    });
+
+    function livelyShark() {
+      var shark = document.getElementById('photo-my-shark');
+      // 
+      shark.style.transform = 'rotate(-30deg)'; // 
+
+      // 
+      setTimeout(function () {
+        shark.style.transform = 'rotate(40deg)'; // 
+      }, 250); // 
+
+      // 
+      setTimeout(function () {
+        shark.style.transform = 'rotate(0deg)'; // 
+      }, 500); // 
+    }
+
+    // 
+    setInterval(livelyShark, 5000);
+
+
+    // 
+    function addJumpEffect() {
+      var shark = document.getElementById('jumpshark');
+      shark.style.animationName = 'jump'; // 
+    }
+
+    // 
+    function removeJumpEffect() {
+      var shark = document.getElementById('jumpshark');
+      shark.style.animationName = 'none'; // 
+    }
+
+  </script>
+
+
+</body>
+
+</html>
